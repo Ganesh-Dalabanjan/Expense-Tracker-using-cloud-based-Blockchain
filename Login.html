@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Login Page</title>
+        <style>
+body
+{
+    background-image: url("https://news.mit.edu/sites/default/files/styles/news_article__image_gallery/public/images/202106/MIT-Algorand-01_0.jpg?itok=kc8Jm3nW");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+input{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 20px 10px;
+    outline: none;
+    border: 2px solid black;
+}
+::placeholder
+{
+    color: white;
+    opacity: 100%;
+}
+.placeholder{
+    color: white;
+}
+input
+{
+    background-color: transparent;
+    color: white;
+}
+.login-heading
+{
+    position: fixed;
+    top: -90px;
+    left: 50%;
+    transform: translate(-50%,40%);
+    background-color: #192a3aec ;
+    border: #192a3a;
+    width: 300px;
+    
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    font-size: large;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.login-heading input
+{
+    background-color: transparent;
+    color: rgb(10, 10, 10);
+}
+
+::placeholder
+{
+    color: rgb(247, 243, 243);
+    opacity: 100%;
+}
+
+        </style>
+    </head>
+    <body>
+        <form name="myform" method="POST" action="login">
+            <div class="login-heading">
+                <h1>Login</h1>
+                <label>Username: </label> <input type="text" name="name" id="name" placeholder="Username" value="" autocomplete="off">
+                <label>Password: </label> <input type="password" name="psd" id="psd" placeholder="Password" value="">
+                <div class="btn">
+                    <input type="reset" value="Reset" style="background-color: #11c7d2;">
+                    <input type="submit" value="Login" style="background-color: #11c7d2;"><br/><br/>
+                    <h3>New User? <a href="/register" style="color: #11c7d2; text-decoration: underline;">Sign Up</a></h3>
+                </div>
+            </div>
+        </form>
+    </body>
+</html>

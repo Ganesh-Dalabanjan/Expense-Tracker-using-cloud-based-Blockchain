@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <style>
+            h1{
+    color: white;
+}
+
+label
+{
+    color: white;
+}
+div{
+    position: relative;
+}
+
+body
+{
+    background-image: url("https://news.mit.edu/sites/default/files/styles/news_article__image_gallery/public/images/202106/MIT-Algorand-01_0.jpg?itok=kc8Jm3nW");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+input{
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 20px 10px;
+    outline: none;
+    border: 2px solid #11c7d2;
+    color: white;
+}
+::placeholder
+{
+    color: white;
+    opacity: 100%;
+}
+.placeholder{
+    color: white;
+}
+input
+{
+    background-color: transparent;
+    color: white;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+.submit{
+    background-color: rgba(243, 128, 128, 0.3);
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 20px 10px;
+    outline: none;
+    border: 2px solid black;
+}
+input{
+    background-color: black(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 10px 15px;
+    margin: 20px 10px;
+    outline: none;
+    border: 2px solid black;
+}
+.login-heading
+{
+    top: -100px;
+    left: 50%;
+    transform: translate(-50%,40%);
+    background-color: #192a3aec ;
+    border: #192a3a;
+    width: 500px;
+    
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+    font-size: large;
+    /* padding: 5px; */
+    border-radius: 5px;
+}
+
+
+.login-heading input
+{
+    background-color: transparent;
+    color: rgb(10, 10, 10);
+}
+::placeholder
+{
+    color: rgb(247, 243, 243);
+    opacity: 100%;
+}
+
+        </style>
+        <br/><header><h3><a href="/" style="color: black; text-decoration: underline; margin-left: 1150px;">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/page" style="color: black; text-decoration: underline;">Back</a></h3></header>
+        <center><h1>Register</h1></center>
+    </head>
+    <body>
+        <form name="Register" method="post" action="commit">
+            <div class="login-heading">
+            <label style="margin-top: 50px;">Date : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="date" autocomplete="off" name="edate" value="" style="margin-top: 50px; width: 200px;"><br/>
+            <label>Description : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="text" autocomplete="off" autocomplete="off" name="edesc" placeholder="Description" value=""><br/>
+            <label>Amount : </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="number" autocomplete="off" name="eamt" placeholder="Amount" value=""><br/>
+            <div align="center">
+            <input type="reset" value="Reset" style="background-color: #11c7d2">
+            <input type="submit" value="Add" style="background-color: #11c7d2;">
+        </div>
+        </div>
+        </form>
+    </body>
+</html>
