@@ -11,23 +11,11 @@ const { ECHILD } = require('constants');
 const app = express()
 const PythonShell = require('python-shell').PythonShell;
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "DCC"
-  });
-
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected to database!");
-  })
 app.use(express.static('Login.html'))
 app.use(express.static(__dirname + "Register.html"));
 app.use(express.static(__dirname + "Page.html"));
 app.use(express.static(__dirname + "add.html"));
 app.use(express.static(__dirname + "Success.html"));
-
 
 app.get('/', function(req, res){
 	res.sendFile('Login.html', {root:__dirname})
@@ -49,34 +37,6 @@ app.get('/Success', function(req, res){
 
 //Blockchain Functions
 var abi = [
-	{
-		"inputs": [],
-		"name": "getexpense",
-		"outputs": [
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			},
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			},
-			{
-				"internalType": "string[]",
-				"name": "",
-				"type": "string[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
 	{
 		"inputs": [
 			{
@@ -104,12 +64,40 @@ var abi = [
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getexpense",
+		"outputs": [
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			},
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			},
+			{
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
 	}
 ]
 
 
 var address = '0xe35d2a19a902a373905557464fc4d0a5a152f2ec';
-var cont_addr = '0xa4ab49d86FA062c8955d2a8ce11660Ac6B65d0F3';
+var cont_addr = '0x944852b20221e128bf658c5813042CE64c680EA4';
 var lsize;
 
 async function getdetails()
@@ -145,16 +133,146 @@ async function storedetails()
 
 
 
+var abi1 = [
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_username",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_phone",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_fname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_lname",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_password",
+				"type": "string"
+			}
+		],
+		"name": "storeuser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_username",
+				"type": "string"
+			}
+		],
+		"name": "getinfo",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_username",
+				"type": "string"
+			}
+		],
+		"name": "getuser",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
 
+var cont_addr1 = '0x5E91D1bd231F0b5eBb7023eda3d94d9E42f34Bb7';
+var uname, upass;
+async function getuser1()
+{                         
+                const Web3 = require('web3');
+                var web3 = new Web3('http://localhost:8545')
+            var MyContract = new web3.eth.Contract(abi1, cont_addr1);
+            console.log(userid);
+            await MyContract.methods.getuser(userid).call({from: address}, function(err, res)
+            {
+                if(err) throw err;
+                uname = res[0];
+                upass = res[1];
+            })
+            .then(console.log)            
+}
+
+
+async function storeuser1()
+{           
+                const Web3 = require('web3');
+                var web3 = new Web3('http://localhost:8545')
+            var MyContract = new web3.eth.Contract(abi1, cont_addr1);
+            console.log(reguser, pno, regf, regl, regpas);
+            await MyContract.methods.storeuser(reguser, pno, regf, regl, regpas).send({from: address})
+            .then(console.log)
+}
+
+
+
+var reguser, regf, regl, regpas, pno, userid;
 //Register Function
-app.post('/regis',urlencodedParser,function (req,res)
+app.post('/regis',urlencodedParser,async function (req,res)
 {
-    var reguser = req.body.username;
-    var regf = req.body.fname;
-    var regl = req.body.lname;
-    var regpas = req.body.pass;
-    var regcon = req.body.cpass;
-    var pno = req.body.pno;
+    reguser = req.body.username;
+    userid = reguser;
+    regf = req.body.fname;
+    regl = req.body.lname;
+    regpas = req.body.pass;
+    regcon = req.body.cpass;
+    pno = req.body.pno;
     var flag3=0;
     var usname = [];
 
@@ -167,17 +285,9 @@ app.post('/regis',urlencodedParser,function (req,res)
     {
         if(regpas===regcon)
         {
-            var sql = "SELECT username From register";     
-            con.query(sql, function (err, result) {
-                if (err) throw err;
-                var size = result.length;
-                for (let i=0; i<size; i++)
-                {
-                    usname[i] = result[i].username;
-                }
-                for (let i=0; i<size; i++)
-                {
-                    if(reguser===usname[i])
+            console.log(uname);
+            await getuser1();        
+            if(reguser===uname)
                     {
                         flag3=1;
                         alert("User already exist with same username");
@@ -186,19 +296,14 @@ app.post('/regis',urlencodedParser,function (req,res)
                     {
                         flag3=0;
                     }
-                }
                 if(flag3===0)
                 {
-                    var sql1 = "INSERT into register values('"+regf+"','"+regl+"','"+reguser+"','"+pno+"','"+regpas+"')";
-                    con.query(sql1, function (err, result) {
-                        if (err) throw err;
-                        console.log("Customer Registered Successfully");
-                            console.log("User Created Successfully with username ", reguser);
-                            res.redirect("/");
-                            res.end();
-                        });
+                    await storeuser1();
+                    console.log("Customer Registered Successfully");
+                    console.log("User Created Successfully with username ", reguser);
+                    res.redirect("/");
+                    res.end();
                 }
-            });
         }
         else
         {
@@ -208,34 +313,22 @@ app.post('/regis',urlencodedParser,function (req,res)
 });
 
 //Login Function
-app.post('/login',urlencodedParser,function (req,res)
+app.post('/login',urlencodedParser,async function (req,res)
 {
     var usname = req.body.name;
+    userid = usname;
     eusname = usname;
     var ps = req.body.psd;
-    var usern = [], userpass = [];
     var flag = 0;
-    var sql = "SELECT * From register";
-    con.query(sql, function (err, result) {
-        if (err) throw err;
-        var size = result.length;
-        for (let i=0; i<size; i++)
+    await getuser1();
+    if(usname!=="" && ps!=="")
         {
-            usern[i]=result[i].username;
-            userpass[i]=result[i].password;
-        }
-
-        if(usname!=="" && ps!=="")
-        {
-            for(let i=0; i<size; i++)
+            if(usname==uname && ps==upass)
             {
-                if(usname==usern[i] && ps==userpass[i])
-                {
-                    res.redirect("/page");
-                    flag = 1;
-                }
-
+                res.redirect("/page");
+                flag = 1;
             }
+
         }
         else
         {
@@ -246,9 +339,8 @@ app.post('/login',urlencodedParser,function (req,res)
         {
             alert("Invalid Credentials");
         }
-    });
-
 });
+
 var date =[], desc =[], amt=[], usnam=[];
 var date1 =[], desc1 =[], amt1=[], usnam1=[];
 app.get('/check',urlencodedParser,async function(req, res)
@@ -370,12 +462,6 @@ app.post('/commit',urlencodedParser,function(req, res)
     storedetails();
     res.redirect("/Success")
 });
-
-// app.get('/week',urlencodedParser,function(req, res)
-// {
-//     console.log("Hi");
-// });
-
 
 app.listen(8080, function(req, res)
 {
